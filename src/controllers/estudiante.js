@@ -1,10 +1,10 @@
-const userService = require("../services/user.js");
-const handleErrorController = require("../utils/handleErrorController.js");
+const estudianteService = require("../services/estudiante");
+const handleErrorController = require("../utils/handleErrorController");
 
 const getAll = async (req, res) => {
   try {
-    const users = await userService.getAll();
-    return res.status(200).json({ data: users });
+    const students = estudianteService.getAll();
+    return res.status(200).json({ data: students });
   } catch (err) {
     handleErrorController(err.message, res);
   }
@@ -13,8 +13,8 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await userService.getById(id);
-    return res.status(200).json({ data: user });
+    const student = await estudianteService.getById(id);
+    return res.status(200).json({ data: student });
   } catch (err) {
     handleErrorController(err.message, res);
   }
@@ -23,8 +23,8 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
   try {
     const { user } = req.body;
-    const newUser = await userService.create(user);
-    return res.status(200).json({ data: newUser });
+    const newStudent = await estudianteService.create(user);
+    return res.status(200).json({ data: newStudent });
   } catch (err) {
     handleErrorController(err.message, res);
   }
@@ -33,8 +33,8 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   try {
     const { id, user } = req.params;
-    const updatedUser = await userService.update(id, user);
-    return res.status(200).json({ data: updatedUser });
+    const updateStudent = await estudianteService.update(id, user);
+    return res.status(200).json({ data: updateStudent });
   } catch (err) {
     handleErrorController(err.message, res);
   }
@@ -43,14 +43,14 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedUser = await userService.destroy(id);
-    return res.status(200).json({ data: deletedUser });
+    const deleteStudent = await userService.destroy(id);
+    return res.status(200).json({ data: deleteStudent });
   } catch (err) {
     handleErrorController(err.message, res);
   }
 };
 
-const userController = {
+const studentController = {
   getAll,
   getById,
   create,
@@ -58,4 +58,4 @@ const userController = {
   destroy,
 };
 
-module.exports = userController;
+module.exports = studentController;
