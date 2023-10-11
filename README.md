@@ -33,7 +33,7 @@ Este proyecto se realiza en el contexto del curso "Testing" del Ciclo 8. Durante
 
 ## Instalación
 
-1. Clona el repositorio: `git clone https://github.com/tuusuario/tuproyecto.git`
+1. Clona el repositorio: `git clone https://github.com/Jheyson-Dev/c8_backend.git`
 2. Instala las dependencias: `npm install`
 3. Inicia la aplicación: `npm start`
 
