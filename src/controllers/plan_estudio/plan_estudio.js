@@ -1,10 +1,10 @@
 const planEstudioService = require("../../services/plan_estudio/plan_estudio.js");
-const handleErrorController = require("../utils/handleErrorController");
-const reqValidatorContent = require("../utils/reqValidatorContent.js");
+const handleErrorController = require("../../utils/handleErrorController.js");
+const reqValidatorContent = require("../../utils/reqValidatorContent.js");
 
 const getAll = async (req, res) => {
   try {
-    const response = planEstudioService.getAll();
+    const response = await planEstudioService.getAll();
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);

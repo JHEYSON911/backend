@@ -1,10 +1,10 @@
 const tipoAuxiliarService = require("../../services/certificado/tipo_auxiliar.js");
-const handleErrorController = require("../utils/handleErrorController");
-const reqValidatorContent = require("../utils/reqValidatorContent.js");
+const handleErrorController = require("../../utils/handleErrorController.js");
+const reqValidatorContent = require("../../utils/reqValidatorContent.js");
 
 const getAll = async (req, res) => {
   try {
-    const response = tipoAuxiliarService.getAll();
+    const response = await tipoAuxiliarService.getAll();
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);

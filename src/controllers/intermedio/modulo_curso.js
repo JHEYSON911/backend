@@ -1,10 +1,10 @@
 const moduloCursoService = require("../../services/intermedio/modulo_curso.js");
-const handleErrorController = require("../utils/handleErrorController");
-const reqValidatorContent = require("../utils/reqValidatorContent.js");
+const handleErrorController = require("../../utils/handleErrorController.js");
+const reqValidatorContent = require("../../utils/reqValidatorContent.js");
 
 const getAll = async (req, res) => {
   try {
-    const response = moduloCursoService.getAll();
+    const response = await moduloCursoService.getAll();
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);

@@ -1,10 +1,10 @@
 const institucionService = require("../../services/institucion/institucion.js");
-const handleErrorController = require("../utils/handleErrorController");
-const reqValidatorContent = require("../utils/reqValidatorContent.js");
+const handleErrorController = require("../../utils/handleErrorController.js");
+const reqValidatorContent = require("../../utils/reqValidatorContent.js");
 
 const getAll = async (req, res) => {
   try {
-    const response = institucionService.getAll();
+    const response = await institucionService.getAll();
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);

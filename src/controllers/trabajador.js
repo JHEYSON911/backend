@@ -4,7 +4,7 @@ const reqValidatorContent = require("../utils/reqValidatorContent.js");
 
 const getAll = async (req, res) => {
   try {
-    const response = TrabajadorService.getAll();
+    const response = await TrabajadorService.getAll();
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
