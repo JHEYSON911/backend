@@ -65,5 +65,3 @@ Si deseas contribuir al proyecto, por favor sigue estas pautas:
 Este proyecto está bajo la licencia [MIT](LICENSE).
 
 ---
-
-_Nota: Asegúrate de reemplazar "tuusuario" y "tuproyecto" con la información real de tu repositorio._
