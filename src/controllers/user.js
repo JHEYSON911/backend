@@ -1,10 +1,11 @@
 const userService = require("../services/user.js");
 const handleErrorController = require("../utils/handleErrorController.js");
+const reqValidatorContent = require("../utils/reqValidatorContent.js");
 
 const getAll = async (req, res) => {
   try {
-    const users = await userService.getAll();
-    return res.status(200).json({ data: users });
+    const response = await userService.getAll();
+    return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
   }
@@ -13,8 +14,8 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await userService.getById(id);
-    return res.status(200).json({ data: user });
+    const response = await userService.getById(id);
+    return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
   }
@@ -22,9 +23,10 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const { user } = req.body;
-    const newUser = await userService.create(user);
-    return res.status(200).json({ data: newUser });
+    const { bodyData } = req.body;
+    reqValidatorContent(bodyData);
+    const response = await userService.create(bodyData);
+    return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
   }
@@ -32,9 +34,11 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const { id, user } = req.params;
-    const updatedUser = await userService.update(id, user);
-    return res.status(200).json({ data: updatedUser });
+    const { id } = req.params;
+    const { bodyData } = req.body;
+    reqValidatorContent(bodyData);
+    const response = await userService.update(id, bodyData);
+    return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
   }
@@ -43,8 +47,8 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedUser = await userService.destroy(id);
-    return res.status(200).json({ data: deletedUser });
+    const response = await userService.destroy(id);
+    return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
   }

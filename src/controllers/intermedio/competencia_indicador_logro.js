@@ -1,10 +1,10 @@
-const estudianteService = require("../services/estudiante.js");
-const handleErrorController = require("../utils/handleErrorController.js");
+const competenciaIndicadorLogroService = require("../../services/intermedio/competencia_indicador_logro.js");
+const handleErrorController = require("../utils/handleErrorController");
 const reqValidatorContent = require("../utils/reqValidatorContent.js");
 
 const getAll = async (req, res) => {
   try {
-    const response = estudianteService.getAll();
+    const response = competenciaIndicadorLogroService.getAll();
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
@@ -14,7 +14,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await estudianteService.getById(id);
+    const response = await competenciaIndicadorLogroService.getById(id);
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
@@ -25,7 +25,7 @@ const create = async (req, res) => {
   try {
     const { bodyData } = req.body;
     reqValidatorContent(bodyData);
-    const response = await estudianteService.create(bodyData);
+    const response = await competenciaIndicadorLogroService.create(bodyData);
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
@@ -37,7 +37,10 @@ const update = async (req, res) => {
     const { id } = req.params;
     const { bodyData } = req.body;
     reqValidatorContent(bodyData);
-    const response = await estudianteService.update(id, bodyData);
+    const response = await competenciaIndicadorLogroService.update(
+      id,
+      bodyData,
+    );
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
@@ -47,14 +50,14 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await estudianteService.destroy(id);
+    const response = await competenciaIndicadorLogroService.destroy(id);
     return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
   }
 };
 
-const studentController = {
+const competenciaIndicadorLogroController = {
   getAll,
   getById,
   create,
@@ -62,4 +65,4 @@ const studentController = {
   destroy,
 };
 
-module.exports = studentController;
+module.exports = competenciaIndicadorLogroController;
