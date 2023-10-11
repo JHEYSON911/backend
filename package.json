@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --watch",
+    "test": "jest --coverage",
     "lint": "npx eslint src/**",
     "dev": "nodemon src/index.js"
   },
