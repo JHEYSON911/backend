@@ -1,60 +1,163 @@
 const userService = require("../../src/services/user.js");
 
-describe("UserService", () => {
-  // Prueba para la función getAll
+jest.mock("../../src/models/user.js", () => ({
+  findAll: jest.fn(),
+  findByPk: jest.fn(),
+  create: jest.fn(),
+  update: jest.fn(),
+  destroy: jest.fn(),
+}));
+
+jest.mock("../../src/utils/contentValidator.js", () => jest.fn());
+
+describe("userService", () => {
+  const mockUser = { id: 1, name: "John Doe" };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe("getAll", () => {
-    it("should return an array of users", async () => {
-      const users = await userService.getAll();
-      expect(Array.isArray(users)).toBe(true);
+    it("should return all users", async () => {
+      const mockUsers = [mockUser];
+      const findAllMock = jest.fn(() => mockUsers);
+      require("../../src/models/user.js").findAll = findAllMock;
+
+      const result = await userService.getAll();
+
+      expect(result).toEqual(mockUsers);
+      expect(findAllMock).toHaveBeenCalledTimes(1);
+      expect(
+        require("../../src/utils/contentValidator.js"),
+      ).toHaveBeenCalledWith(mockUsers);
     });
 
-    it("should throw an error if no users are found", async () => {
+    it("should throw an error if there is an error", async () => {
+      const error = new Error("Something went wrong");
+      require("../../src/models/user.js").findAll = jest.fn(() => {
+        throw error;
+      });
+
       try {
         await userService.getAll();
-      } catch (error) {
-        expect(error.message).toEqual("Resource not found");
+      } catch (e) {
+        expect(e).toEqual(error);
       }
     });
   });
 
-  // Prueba para la función getById
   describe("getById", () => {
-    it("should return a user object", async () => {
-      const user = await userService.getById(1);
-      expect(user).toBeDefined();
+    it("should return a user by id", async () => {
+      const findByIdMock = jest.fn(() => mockUser);
+      require("../../src/models/user.js").findByPk = findByIdMock;
+
+      const result = await userService.getById(1);
+
+      expect(result).toEqual(mockUser);
+      expect(findByIdMock).toHaveBeenCalledWith(1);
+      expect(
+        require("../../src/utils/contentValidator.js"),
+      ).toHaveBeenCalledWith(mockUser);
     });
 
-    it("should throw an error if user is not found", async () => {
-      try {
-        await userService.getById(999);
-      } catch (error) {
-        expect(error.message).toEqual("Resource not found");
-      }
-    });
-  });
-
-  // Prueba para la función create
-  describe("create", () => {
-    it("should return a newly created user object", async () => {
-      const newUser = await userService.create({
-        username: "testuser",
-        email: "testuser@example.com",
+    it("should throw an error if there is an error", async () => {
+      const error = new Error("Something went wrong");
+      require("../../src/models/user.js").findByPk = jest.fn(() => {
+        throw error;
       });
-      expect(newUser).toBeDefined();
-      expect(newUser.username).toEqual("testuser");
-      expect(newUser.email).toEqual("testuser@example.com");
-    });
 
-    it("should throw an error if user creation fails", async () => {
       try {
-        await userService.create({
-          // Proporciona datos inválidos para forzar un error
-        });
-      } catch (error) {
-        expect(error.message).toEqual("Error creating user");
+        await userService.getById(1);
+      } catch (e) {
+        expect(e).toEqual(error);
       }
     });
   });
 
-  // ... Pruebas para otras funciones (update y destroy) ...
+  describe("create", () => {
+    it("should create a new user", async () => {
+      const createUserMock = jest.fn(() => mockUser);
+      require("../../src/models/user.js").create = createUserMock;
+
+      const result = await userService.create(mockUser);
+
+      expect(result).toEqual(mockUser);
+      expect(createUserMock).toHaveBeenCalledWith(mockUser);
+      expect(
+        require("../../src/utils/contentValidator.js"),
+      ).toHaveBeenCalledWith(mockUser);
+    });
+
+    it("should throw an error if there is an error", async () => {
+      const error = new Error("Something went wrong");
+      require("../../src/models/user.js").create = jest.fn(() => {
+        throw error;
+      });
+
+      try {
+        await userService.create(mockUser);
+      } catch (e) {
+        expect(e).toEqual(error);
+      }
+    });
+  });
+
+  describe("update", () => {
+    it("should update a user", async () => {
+      const updateUserMock = jest.fn(() => [1]);
+      require("../../src/models/user.js").update = updateUserMock;
+
+      const result = await userService.update(1, mockUser);
+
+      expect(result).toEqual([1]);
+      expect(updateUserMock).toHaveBeenCalledWith(
+        { user: mockUser },
+        { where: { id: 1 } },
+      );
+      expect(
+        require("../../src/utils/contentValidator.js"),
+      ).toHaveBeenCalledWith([1]);
+    });
+
+    it("should throw an error if there is an error", async () => {
+      const error = new Error("Something went wrong");
+      require("../../src/models/user.js").update = jest.fn(() => {
+        throw error;
+      });
+
+      try {
+        await userService.update(1, mockUser);
+      } catch (e) {
+        expect(e).toEqual(error);
+      }
+    });
+  });
+
+  describe("destroy", () => {
+    it("should destroy a user", async () => {
+      const destroyUserMock = jest.fn(() => 1);
+      require("../../src/models/user.js").destroy = destroyUserMock;
+
+      const result = await userService.destroy(1);
+
+      expect(result).toEqual(1);
+      expect(destroyUserMock).toHaveBeenCalledWith({ where: { id: 1 } });
+      expect(
+        require("../../src/utils/contentValidator.js"),
+      ).toHaveBeenCalledWith(1);
+    });
+
+    it("should throw an error if there is an error", async () => {
+      const error = new Error("Something went wrong");
+      require("../../src/models/user.js").destroy = jest.fn(() => {
+        throw error;
+      });
+
+      try {
+        await userService.destroy(1);
+      } catch (e) {
+        expect(e).toEqual(error);
+      }
+    });
+  });
 });

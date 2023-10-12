@@ -23,7 +23,7 @@ const getById = async (id) => {
 
 const create = async (student) => {
   try {
-    const newStudent = await Estudiante.create();
+    const newStudent = await Estudiante.create(student);
     contentValidator(newStudent);
     return newStudent;
   } catch (err) {
@@ -33,7 +33,7 @@ const create = async (student) => {
 
 const update = async (id, student) => {
   try {
-    const updateStudent = await Estudiante.destroy(
+    const updateStudent = await Estudiante.update(
       { student },
       { where: { id } },
     );
@@ -46,6 +46,9 @@ const update = async (id, student) => {
 
 const destroy = async (id) => {
   try {
+    const studentDestroy = await Estudiante.destroy({ where: { id } });
+    contentValidator(studentDestroy);
+    return studentDestroy;
   } catch (err) {
     throw err;
   }
