@@ -33,7 +33,7 @@ const create = async (user) => {
 
 const update = async (id, user) => {
   try {
-    const updateUser = await User.update({ user }, { where: { id } });
+    const updateUser = await User.update(user, { where: { id } });
     contentValidator(updateUser);
     return updateUser;
   } catch (err) {
@@ -65,9 +65,10 @@ const findExist = async (username) => {
 const findUser = async (username) => {
   try {
     const find = await User.findOne({ where: { username } });
-    if (find === null) {
-      throw new Error("User Not Found");
-    }
+    // if (find === null) {
+    //   throw new Error("User Not Found");
+    // }
+    contentValidator(find);
     return find;
   } catch (err) {
     throw err;
@@ -77,7 +78,38 @@ const findUser = async (username) => {
 const validatePassword = (username, password) => {
   try {
     const user = User.findOne({ where: { username } });
+    contentValidator(user);
     return user;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const generateCodeLogin = (code, username) => {
+  try {
+    const codigo = User.update({ loginCode: code }, { where: { username } });
+    contentValidator(codigo);
+    return codigo;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const updatePassword = (password, username) => {
+  try {
+    const update = User.update({ password }, { where: { username } });
+    contentValidator(update);
+    return update;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const generateCodeRecovery = (code, username) => {
+  try {
+    const codigo = User.update({ recoveryCode: code }, { where: { username } });
+    contentValidator(codigo);
+    return codigo;
   } catch (err) {
     throw err;
   }
@@ -92,6 +124,9 @@ const userService = {
   findExist,
   findUser,
   validatePassword,
+  generateCodeLogin,
+  generateCodeRecovery,
+  updatePassword,
 };
 
 module.exports = userService;

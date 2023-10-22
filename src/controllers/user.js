@@ -36,6 +36,7 @@ const update = async (req, res) => {
   try {
     const { id } = req.params;
     const { bodyData } = req.body;
+    console.log(bodyData);
     reqValidatorContent(bodyData);
     const response = await userService.update(id, bodyData);
     return res.status(200).json({ data: response });

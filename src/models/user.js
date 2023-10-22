@@ -24,6 +24,12 @@ const User = db.define(
     nombreCompleto: {
       type: DataTypes.STRING,
     },
+    loginCode: {
+      type: DataTypes.STRING,
+    },
+    recoveryCode: {
+      type: DataTypes.STRING,
+    },
   },
   {
     freezeTableName: true,
