@@ -1,6 +1,9 @@
 const messageCodeError = {
+  "User Not Found": 404,
+  "User already exists": 409,
   "Resource not found": 404,
   "Bad request": 400,
+  Conflict: 409,
   Unauthorized: 401,
   Forbidden: 403,
 };

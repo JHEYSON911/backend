@@ -22,6 +22,9 @@ const tipoEnfoqueRoutes = require("./routes/plan_estudio/tipo_enfoque.js");
 const tipoItinerarioRoutes = require("./routes/plan_estudio/tipo_itinerario.js");
 const tipoModalidadRoutes = require("./routes/plan_estudio/tipo_modalidad.js");
 
+//  Importando las rutas de la logica del Negocio
+const authRoutes = require("./routes/auth.js");
+
 const app = express();
 
 app.use(express.json());
@@ -50,5 +53,9 @@ app.use("/api/v1/programa-de-estudios", programaDeEstudiosRoutes);
 app.use("/api/v1/tipo-enfoque", tipoEnfoqueRoutes);
 app.use("/api/v1/tipo-itinerario", tipoItinerarioRoutes);
 app.use("/api/v1/tipo-modalidad", tipoModalidadRoutes);
+
+// Rutas del Negocio
+
+app.use("/api/v1/auth", authRoutes);
 
 module.exports = app;

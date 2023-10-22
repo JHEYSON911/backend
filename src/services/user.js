@@ -51,12 +51,47 @@ const destroy = async (id) => {
   }
 };
 
+const findExist = async (username) => {
+  try {
+    const findUser = await User.findOne({ where: { username } });
+    if (!(findUser === null)) {
+      throw new Error("User already exists");
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
+const findUser = async (username) => {
+  try {
+    const find = await User.findOne({ where: { username } });
+    if (find === null) {
+      throw new Error("User Not Found");
+    }
+    return find;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const validatePassword = (username, password) => {
+  try {
+    const user = User.findOne({ where: { username } });
+    return user;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const userService = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  findExist,
+  findUser,
+  validatePassword,
 };
 
 module.exports = userService;
