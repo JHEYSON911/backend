@@ -1,4 +1,5 @@
 const Estudiante = require("../models/estudiante.js");
+const Certificado = require("../models/certificado/certificado.js");
 const contentValidator = require("../utils/contentValidator");
 
 const getAll = async () => {
@@ -33,10 +34,7 @@ const create = async (student) => {
 
 const update = async (id, student) => {
   try {
-    const updateStudent = await Estudiante.update(
-      { student },
-      { where: { id } },
-    );
+    const updateStudent = await Estudiante.update(student, { where: { id } });
     contentValidator(updateStudent);
     return updateStudent;
   } catch (err) {
@@ -54,12 +52,22 @@ const destroy = async (id) => {
   }
 };
 
+const searchCertificatesByCode = async (code) => {
+  try {
+    const search = await Estudiante.findOne({ include: { all: true } });
+    contentValidator(search);
+    return search;
+  } catch (err) {
+    throw err;
+  }
+};
 const estudianteService = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  searchCertificatesByCode,
 };
 
 module.exports = estudianteService;

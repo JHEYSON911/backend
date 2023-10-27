@@ -9,10 +9,19 @@ const ModuloCompetencia = db.define("modulo_competencia", {
   },
   moduloId: {
     type: DataTypes.INTEGER,
+    references: {
+      model: "Modulo",
+      key: "id",
+    },
   },
   competenciaId: {
     type: DataTypes.INTEGER,
+    references: {
+      model: "Competencia",
+      key: "id",
+    },
   },
+  started: DataTypes.BOOLEAN,
 });
 
 module.exports = ModuloCompetencia;

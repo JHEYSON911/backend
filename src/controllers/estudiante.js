@@ -54,12 +54,22 @@ const destroy = async (req, res) => {
   }
 };
 
+const getCertificatesByCode = async (req, res) => {
+  try {
+    const { code } = req.params;
+    const search = await estudianteService.searchCertificatesByCode(code);
+    return res.status(200).json({ data: search });
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
 const studentController = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  getCertificatesByCode,
 };
 
 module.exports = studentController;

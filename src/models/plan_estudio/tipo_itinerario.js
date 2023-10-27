@@ -20,4 +20,5 @@ const TipoItinerario = db.define(
     updatedAt: false,
   },
 );
+
 module.exports = TipoItinerario;

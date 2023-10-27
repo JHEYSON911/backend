@@ -30,15 +30,13 @@ Carrera.belongsTo(Institucion, {
   onDelete: "CASCADE",
 });
 
-Carrera.belongsToMany(PlanEstudio, {
-  through: "carrera_plan_estudio",
+Carrera.hasOne(Trabajador, {
   foreignKey: "carreraId",
   onDelete: "CASCADE",
 });
 
-PlanEstudio.belongsToMany(Carrera, {
-  through: "carrera_plan_estudio",
-  foreignKey: "planDeEstudioId",
+Trabajador.belongsTo(Carrera, {
+  foreignKey: "carreraId",
   onDelete: "CASCADE",
 });
 
@@ -99,54 +97,6 @@ TipoEnfoque.hasOne(PlanEstudio, {
 
 PlanEstudio.belongsTo(TipoEnfoque, {
   foreignKey: "tipoEnfoqueId",
-  onDelete: "CASCADE",
-});
-
-PlanEstudio.belongsToMany(Modulo, {
-  through: "plan_estudio_modulo",
-  foreignKey: "planEstudioId",
-  onDelete: "CASCADE",
-});
-
-Modulo.belongsToMany(PlanEstudio, {
-  through: "plan_estudio_modulo",
-  foreignKey: "moduloId",
-  onDelete: "CASCADE",
-});
-
-Modulo.belongsToMany(Competencia, {
-  through: "modulo_competencia",
-  foreignKey: "moduloId",
-  onDelete: "CASCADE",
-});
-
-Competencia.belongsToMany(Modulo, {
-  through: "modulo_competencia",
-  foreignKey: "competenciaId",
-  onDelete: "CASCADE",
-});
-
-Competencia.belongsToMany(IndicadorLogro, {
-  through: "competencia_indicador_logro",
-  foreignKey: "competenciaId",
-  onDelete: "CASCADE",
-});
-
-IndicadorLogro.belongsToMany(Competencia, {
-  through: "competencia_indicador_logro",
-  foreignKey: "indicadorId",
-  onDelete: "CASCADE",
-});
-
-Modulo.belongsToMany(Curso, {
-  through: "modulo_curso",
-  foreignKey: "moduloId",
-  onDelete: "CASCADE",
-});
-
-Curso.belongsToMany(Modulo, {
-  through: "modulo_curso",
-  foreignKey: "cursoId",
   onDelete: "CASCADE",
 });
 
@@ -230,12 +180,74 @@ Solicitud.belongsTo(TipoSolicitud, {
   onDelete: "CASCADE",
 });
 
-Carrera.hasOne(Trabajador, {
+Estudiante.belongsToMany(PlanEstudio, {
+  through: "estudiante_plan_estudio",
+  foreignKey: "estudianteId",
+  onDelete: "CASCADE",
+});
+
+PlanEstudio.belongsToMany(Estudiante, {
+  through: "estudiante_plan_estudio",
+  foreignKey: "planEstudioId",
+  onDelete: "CASCADE",
+});
+
+Carrera.belongsToMany(PlanEstudio, {
+  through: "carrera_plan_estudio",
   foreignKey: "carreraId",
   onDelete: "CASCADE",
 });
 
-Trabajador.belongsTo(Carrera, {
-  foreignKey: "carreraId",
+PlanEstudio.belongsToMany(Carrera, {
+  through: "carrera_plan_estudio",
+  foreignKey: "planEstudioId",
+  onDelete: "CASCADE",
+});
+
+PlanEstudio.belongsToMany(Modulo, {
+  through: "plan_estudio_modulo",
+  foreignKey: "planEstudioId",
+  onDelete: "CASCADE",
+});
+
+Modulo.belongsToMany(PlanEstudio, {
+  through: "plan_estudio_modulo",
+  foreignKey: "moduloId",
+  onDelete: "CASCADE",
+});
+
+Modulo.belongsToMany(Competencia, {
+  through: "modulo_competencia",
+  foreignKey: "moduloId",
+  onDelete: "CASCADE",
+});
+
+Competencia.belongsToMany(Modulo, {
+  through: "modulo_competencia",
+  foreignKey: "competenciaId",
+  onDelete: "CASCADE",
+});
+
+Competencia.belongsToMany(IndicadorLogro, {
+  through: "competencia_indicador_logro",
+  foreignKey: "competenciaId",
+  onDelete: "CASCADE",
+});
+
+IndicadorLogro.belongsToMany(Competencia, {
+  through: "competencia_indicador_logro",
+  foreignKey: "indicadorId",
+  onDelete: "CASCADE",
+});
+
+Modulo.belongsToMany(Curso, {
+  through: "modulo_curso",
+  foreignKey: "moduloId",
+  onDelete: "CASCADE",
+});
+
+Curso.belongsToMany(Modulo, {
+  through: "modulo_curso",
+  foreignKey: "cursoId",
   onDelete: "CASCADE",
 });

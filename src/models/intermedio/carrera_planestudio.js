@@ -1,27 +1,27 @@
 const { DataTypes } = require("sequelize");
 const db = require("../../database/connection.js");
 
-const CarreraPlanEstudio = db.define(
-  "carrera_plan_estudio",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    carreraId: {
-      type: DataTypes.INTEGER,
-    },
-    planEstudioId: {
-      type: DataTypes.INTEGER,
+const CarreraPlanEstudio = db.define("carrera_plan_estudio", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  carreraId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "Carrera",
+      key: "id",
     },
   },
-  {
-    freezeTableName: true,
-    timestamps: false,
-    createdAt: false,
-    updatedAt: false,
+  planEstudioId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "PlanEstudio",
+      key: "id",
+    },
   },
-);
+  started: DataTypes.BOOLEAN,
+});
 
 module.exports = CarreraPlanEstudio;

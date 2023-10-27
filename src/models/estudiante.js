@@ -26,4 +26,5 @@ const Estudiante = db.define(
     freezeTableName: true,
   },
 );
+
 module.exports = Estudiante;
