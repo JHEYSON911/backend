@@ -27,6 +27,13 @@ const TipoSolicitud = require("./solicitud/tipo_solicitud");
 const Calificacion = require("./modulo/calificacion");
 const db = require("../database/connection");
 
+const bcrypt = require("bcryptjs");
+
+const generatePassword = (password) => {
+  const hashPassword = bcrypt.hashSync(password, 10);
+  return hashPassword;
+};
+
 const generarData = async () => {
   const t = await db.transaction();
   try {
@@ -39,46 +46,50 @@ const generarData = async () => {
 
     await Carrera.create({
       nombre: "Ingenieria de Sistemas",
+      institucionId: 1,
     });
     await Carrera.create({
       nombre: "Ingenieria Ambiental",
+      institucionId: 1,
     });
     await Carrera.create({
-      nombre: "Ingenieria Psicologia",
+      nombre: "Psicologia",
+      institucionId: 2,
     });
     await Carrera.create({
-      nombre: "Ingenieria Enfermeria",
+      nombre: "Enfermeria",
+      institucionId: 2,
     });
 
     //  Creacion de Data falsa para el modelo User
 
     await User.create({
       username: "jheyson.vilca",
-      password: "",
+      password: generatePassword("jheyson.vilca"),
       email: "jheyson.vilca@upeu.edu.pe",
       rol: "estudiante",
     });
     await User.create({
       username: "jhon.sucasaire",
-      password: "",
+      password: generatePassword("jhon.sucasaire"),
       email: "jhon.sucasaire@upeu.edu.pe",
       rol: "estudiante",
     });
     await User.create({
       username: "diego.burgos",
-      password: "",
+      password: generatePassword("diego.burgos"),
       email: "diego.burgos@upeu.edu.pe",
       rol: "admin",
     });
     await User.create({
       username: "max.avalos",
-      password: "",
+      password: generatePassword("max.avalos"),
       email: "max.avalos@upeu.edu.pe",
       rol: "empleado",
     });
     await User.create({
       username: "fabrizio.chany",
-      password: "",
+      password: generatePassword("fabrizio.chany"),
       email: "jheyson.vilca@upeu.edu.pe",
       rol: "empleado",
     });
@@ -87,9 +98,13 @@ const generarData = async () => {
 
     await Trabajador.create({
       cargo: "secretaria",
+      carreraId: 1,
+      userId: 4,
     });
     await Trabajador.create({
       cargo: "coordinador",
+      carreraId: 1,
+      userId: 5,
     });
 
     //  Creacion de Data falsa para el modelo Estudiante
@@ -100,13 +115,7 @@ const generarData = async () => {
       codigo: "202012378",
       urlFoto:
         "https://staticg.sportskeeda.com/editor/2023/05/e7f92-16855044906251-1920.jpg",
-    });
-    await Estudiante.create({
-      nombres: "Diego Armando",
-      apellidos: "Burgos Pari",
-      codigo: "202015368",
-      urlFoto:
-        "https://staticg.sportskeeda.com/editor/2023/05/e7f92-16855044906251-1920.jpg",
+      userId: 1,
     });
     await Estudiante.create({
       nombres: "Jhon Erick",
@@ -114,6 +123,15 @@ const generarData = async () => {
       codigo: "202015988",
       urlFoto:
         "https://staticg.sportskeeda.com/editor/2023/05/e7f92-16855044906251-1920.jpg",
+      userId: 2,
+    });
+    await Estudiante.create({
+      nombres: "Diego Armando",
+      apellidos: "Burgos Pari",
+      codigo: "202015368",
+      urlFoto:
+        "https://staticg.sportskeeda.com/editor/2023/05/e7f92-16855044906251-1920.jpg",
+      userId: 3,
     });
     await Estudiante.create({
       nombres: "Max Alexander",
@@ -121,6 +139,7 @@ const generarData = async () => {
       codigo: "202039876",
       urlFoto:
         "https://staticg.sportskeeda.com/editor/2023/05/e7f92-16855044906251-1920.jpg",
+      userId: 4,
     });
     await Estudiante.create({
       nombres: "Fabrizio Nilocay",
@@ -128,6 +147,7 @@ const generarData = async () => {
       codigo: "202068976",
       urlFoto:
         "https://staticg.sportskeeda.com/editor/2023/05/e7f92-16855044906251-1920.jpg",
+      userId: 5,
     });
 
     //  Creacion de Data falsa para el modelo TipoCertificado
@@ -151,15 +171,17 @@ const generarData = async () => {
       codigoRegistro: "1212569",
       observaciones: "Todas las observaciones",
       fechaEmision: "24/10/2023",
-      urlDocumento: "",
+      urlDocument: "",
       estado: "",
+      estudianteId: 1,
     });
     await Certificado.create({
       codigoRegistro: "1212570",
       observaciones: "Ninguna observacion",
       fechaEmision: "24/10/2023",
-      urlDocumento: "",
+      urlDocument: "",
       estado: "",
+      estudianteId: 2,
     });
 
     //  Creacion de Data falsa Para el modelo TipoSolicitud
@@ -181,12 +203,18 @@ const generarData = async () => {
 
     await Solicitud.create({
       asunto: "Asunto1:......",
+      estudianteId: 1,
+      tipoSolicitudId: 1,
     });
     await Solicitud.create({
       asunto: "Asunto2:......",
+      estudianteId: 2,
+      tipoSolicitudId: 1,
     });
     await Solicitud.create({
       asunto: "Asunto3:......",
+      estudianteId: 2,
+      tipoSolicitudId: 3,
     });
 
     //  Creacion de Data falsa para el modelo NivelFormacion
@@ -253,12 +281,24 @@ const generarData = async () => {
       fechaFin: "11-03-2025",
       horasTotales: "1200",
       creditosTotales: "500",
+      planDeEstudiosId: 1,
+      nivelFormacionId: 1,
+      programaDeEstudiosId: 1,
+      tipoItinerarioId: 1,
+      tipoModalidadId: 1,
+      tipoEnfoqueId: 1,
     });
     await PlanEstudio.create({
       fechaInicio: "10-03-2021",
       fechaFin: "11-03-2026",
       horasTotales: "1260",
       creditosTotales: "580",
+      planDeEstudiosId: 1,
+      nivelFormacionId: 1,
+      programaDeEstudiosId: 1,
+      tipoItinerarioId: 1,
+      tipoModalidadId: 1,
+      tipoEnfoqueId: 1,
     });
 
     //  Creacion de Data falsa para el modelo Modulo
@@ -430,15 +470,14 @@ const generarData = async () => {
 
     await Calificacion.create({
       nota: "20",
+      cursoId: 1,
+      estudianteId: 1,
     });
-    await Calificacion.create(
-      {
-        nota: "10",
-      },
-      {
-        transaction: t,
-      },
-    );
+    await Calificacion.create({
+      nota: "10",
+      cursoId: 2,
+      estudianteId: 2,
+    });
     await t.commit();
   } catch (err) {
     console.log(`Ocurrio un error al generar los datos ${err.message}`);

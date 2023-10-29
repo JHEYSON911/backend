@@ -1,4 +1,6 @@
 const Solicitud = require("../../models/solicitud/solicitud");
+const TipoSolicitud = require("../../models/solicitud/tipo_solicitud");
+const Estudiante = require("../../models/estudiante");
 const contentValidator = require("../../utils/contentValidator");
 
 const getAll = async () => {
@@ -13,7 +15,16 @@ const getAll = async () => {
 
 const getById = async (id) => {
   try {
-    const request = await Solicitud.findByPk(id);
+    const request = await Solicitud.findByPk(id, {
+      include: [
+        {
+          model: TipoSolicitud,
+        },
+        {
+          model: Estudiante,
+        },
+      ],
+    });
     contentValidator(request);
     return request;
   } catch (err) {

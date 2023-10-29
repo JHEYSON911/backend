@@ -63,19 +63,21 @@ const login = async (req, res) => {
     const { bodyData } = req.body;
     reqValidatorContent(bodyData);
     const { username, password } = bodyData;
-    const {
-      password: contra,
-      rol,
-      nombreCompleto: nombre,
-    } = await userService.validatePassword(username);
-    const validate = bcrypt.compareSync(password, contra);
-    const token = jwt.sign({ username, rol, nombre }, process.env.JWT_KEY);
-    if (validate) {
-      return res.status(200).json({
-        data: { token },
-      });
-    }
-    return res.status(200).json(validate);
+    // const {
+    //   password: contra,
+    //   rol,
+    //   nombreCompleto: nombre,
+    // } = await userService.validatePassword(username);
+    const response = await userService.validatePassword(username);
+    console.log(response.id);
+    // const validate = bcrypt.compareSync(password, contra);
+    // const token = jwt.sign({ username, rol, nombre }, process.env.JWT_KEY);
+    // if (validate) {
+    //   return res.status(200).json({
+    //     data: { token },
+    //   });
+    // }
+    // return res.status(200).json(validate);
   } catch (err) {
     handleErrorController(err.message, res);
   }
