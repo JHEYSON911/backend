@@ -2,6 +2,8 @@ const Estudiante = require("../models/estudiante.js");
 const Certificado = require("../models/certificado/certificado.js");
 const Calificacion = require("../models/modulo/calificacion.js");
 const Curso = require("../models/modulo/curso.js");
+const PlanEstudiante = require("../models/intermedio/estudiante_planestudio.js");
+const PlanEstudio = require("../models/plan_estudio/plan_estudio.js");
 const Solicitud = require("../models/solicitud/solicitud.js");
 const contentValidator = require("../utils/contentValidator");
 
@@ -103,8 +105,29 @@ const searchCalificationsByEstudentCode = async (codigo) => {
     throw err;
   }
 };
+
+const searchPlanEstudioByStudentCode = async (codigo) => {
+  try {
+    // const { id } = await searchRequestsByStudentCode(codigo);
+    const plan = await Estudiante.findOne({
+      where: { codigo },
+      include: {
+        model: PlanEstudio,
+        through: {
+          model: PlanEstudiante,
+        },
+      },
+    });
+    contentValidator(plan);
+    return plan;
+  } catch (err) {
+    throw err;
+  }
+};
+
 // const  = async (codigo) => {
 //   try {
+// contentValidator(califications);
 //   } catch (err) {
 //     throw err;
 //   }
@@ -120,6 +143,7 @@ const estudianteService = {
   searchCertificatesByStudentCode,
   searchRequestsByStudentCode,
   searchCalificationsByEstudentCode,
+  searchPlanEstudioByStudentCode,
 };
 
 module.exports = estudianteService;

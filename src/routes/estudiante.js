@@ -10,6 +10,7 @@ router.get(
   "/:code/calificaciones",
   estudianteController.getCalificationsByStudentCode,
 );
+router.get("/:code/plan", estudianteController.getPlanByStudentCode);
 router.get("/:id", estudianteController.getById);
 router.post("/", estudianteController.create);
 router.put("/:id", estudianteController.update);

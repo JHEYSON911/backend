@@ -86,7 +86,17 @@ const getCalificationsByStudentCode = async (req, res) => {
   }
 };
 
-// const  = (req, res) => {
+const getPlanByStudentCode = async (req, res) => {
+  try {
+    const { code } = req.params;
+    const search = await estudianteService.searchPlanEstudioByStudentCode(code);
+    return res.status(200).json({ data: search });
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
+
+// const  = async (req, res) => {
 //   try {
 // return res.status(200).json({data:search})
 
@@ -103,6 +113,7 @@ const studentController = {
   getCertificatesByCode,
   getRequestsByCode,
   getCalificationsByStudentCode,
+  getPlanByStudentCode,
 };
 
 module.exports = studentController;
