@@ -65,21 +65,8 @@ const findExist = async (username) => {
 const findUser = async (username) => {
   try {
     const find = await User.findOne({ where: { username } });
-    // if (find === null) {
-    //   throw new Error("User Not Found");
-    // }
     contentValidator(find);
     return find;
-  } catch (err) {
-    throw err;
-  }
-};
-
-const validatePassword = (username, password) => {
-  try {
-    const user = User.findOne({ where: { username } });
-    contentValidator(user);
-    return user;
   } catch (err) {
     throw err;
   }
@@ -123,7 +110,6 @@ const userService = {
   destroy,
   findExist,
   findUser,
-  validatePassword,
   generateCodeLogin,
   generateCodeRecovery,
   updatePassword,

@@ -25,8 +25,9 @@ const create = async (req, res) => {
   try {
     const { bodyData } = req.body;
     reqValidatorContent(bodyData);
-    const response = await solicitudService.create(bodyData);
-    return res.status(200).json({ data: response });
+    console.log(bodyData);
+    // const response = await solicitudService.create(bodyData);
+    // return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
   }
