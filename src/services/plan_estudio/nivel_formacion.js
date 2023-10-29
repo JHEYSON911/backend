@@ -33,10 +33,9 @@ const create = async (educationLevel) => {
 
 const update = async (id, educationLevel) => {
   try {
-    const updateEducationLevel = await NivelFormacion.update(
-      { educationLevel },
-      { where: { id } },
-    );
+    const updateEducationLevel = await NivelFormacion.update(educationLevel, {
+      where: { id },
+    });
     contentValidator(updateEducationLevel);
     return updateEducationLevel;
   } catch (err) {

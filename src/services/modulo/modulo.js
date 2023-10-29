@@ -33,7 +33,7 @@ const create = async (modul) => {
 
 const update = async (id, modul) => {
   try {
-    const updateModul = await Modulo.update({ modul }, { where: { id } });
+    const updateModul = await Modulo.update(modul, { where: { id } });
     contentValidator(updateModul);
     return updateModul;
   } catch (err) {

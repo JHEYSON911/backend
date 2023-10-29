@@ -33,10 +33,9 @@ const create = async (typeOfApproach) => {
 
 const update = async (id, typeOfApproach) => {
   try {
-    const updateTypeOfApproach = await TipoEnfoque.update(
-      { typeOfApproach },
-      { where: { id } },
-    );
+    const updateTypeOfApproach = await TipoEnfoque.update(typeOfApproach, {
+      where: { id },
+    });
     contentValidator(updateTypeOfApproach);
     return updateTypeOfApproach;
   } catch (err) {

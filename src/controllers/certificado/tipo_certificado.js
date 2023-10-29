@@ -4,6 +4,7 @@ const reqValidatorContent = require("../../utils/reqValidatorContent.js");
 
 const getAll = async (req, res) => {
   try {
+    console.log("Llego a esta consulta");
     const response = await tipoCertidicadoService.getAll();
     return res.status(200).json({ data: response });
   } catch (err) {

@@ -33,10 +33,9 @@ const create = async (studyPlan) => {
 
 const update = async (id, studyPlan) => {
   try {
-    const updateStudyPlan = await PlanEstudio.update(
-      { studyPlan },
-      { where: { id } },
-    );
+    const updateStudyPlan = await PlanEstudio.update(studyPlan, {
+      where: { id },
+    });
     contentValidator(updateStudyPlan);
     return updateStudyPlan;
   } catch (err) {

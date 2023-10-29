@@ -33,10 +33,9 @@ const create = async (typeOfModality) => {
 
 const update = async (id, typeOfModality) => {
   try {
-    const updateTypeOfModality = await TipoItinerario.update(
-      { typeOfModality },
-      { where: { id } },
-    );
+    const updateTypeOfModality = await TipoItinerario.update(typeOfModality, {
+      where: { id },
+    });
     contentValidator(updateTypeOfModality);
     return updateTypeOfModality;
   } catch (err) {

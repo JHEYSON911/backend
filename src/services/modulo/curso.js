@@ -33,7 +33,7 @@ const create = async (course) => {
 
 const update = async (id, course) => {
   try {
-    const updateCourse = await Curso.update({ course }, { where: { id } });
+    const updateCourse = await Curso.update(course, { where: { id } });
     contentValidator(updateCourse);
     return updateCourse;
   } catch (err) {

@@ -33,7 +33,7 @@ const create = async (grade) => {
 
 const update = async (id, grade) => {
   try {
-    const updateGrade = await Calificacion.update({ grade }, { where: { id } });
+    const updateGrade = await Calificacion.update(grade, { where: { id } });
     contentValidator(updateGrade);
     return updateGrade;
   } catch (err) {

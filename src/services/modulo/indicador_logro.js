@@ -33,10 +33,9 @@ const create = async (indicator) => {
 
 const update = async (id, indicator) => {
   try {
-    const updateIndicator = await IndicadorLogro.update(
-      { indicator },
-      { where: { id } },
-    );
+    const updateIndicator = await IndicadorLogro.update(indicator, {
+      where: { id },
+    });
     contentValidator(updateIndicator);
     return updateIndicator;
   } catch (err) {

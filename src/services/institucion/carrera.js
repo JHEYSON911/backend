@@ -33,7 +33,7 @@ const create = async (major) => {
 
 const update = async (id, major) => {
   try {
-    const updateMajor = await Carrera.update({ major }, { where: { id } });
+    const updateMajor = await Carrera.update(major, { where: { id } });
     contentValidator(updateMajor);
     return updateMajor;
   } catch (err) {

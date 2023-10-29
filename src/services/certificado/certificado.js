@@ -33,10 +33,9 @@ const create = async (certificate) => {
 
 const update = async (id, certificate) => {
   try {
-    const updateCertificate = await Certificado.update(
-      { certificate },
-      { where: { id } },
-    );
+    const updateCertificate = await Certificado.update(certificate, {
+      where: { id },
+    });
     contentValidator(updateCertificate);
     return updateCertificate;
   } catch (err) {
@@ -54,12 +53,23 @@ const destroy = async (id) => {
   }
 };
 
+// const pushDocument = async (id, urlDoc) => {
+//   try {
+//     const pushDoc = await Certificado.update({ urlDoc }, { where: { id } });
+//     contentValidator(pushDoc);
+//     return pushDoc;
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+
 const certificateService = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  // pushDocument,
 };
 
 module.exports = certificateService;

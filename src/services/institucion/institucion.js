@@ -33,10 +33,9 @@ const create = async (institution) => {
 
 const update = async (id, institution) => {
   try {
-    const updateInstitution = await Institucion.update(
-      { institution },
-      { where: { id } },
-    );
+    const updateInstitution = await Institucion.update(institution, {
+      where: { id },
+    });
     contentValidator(updateInstitution);
     return updateInstitution;
   } catch (err) {

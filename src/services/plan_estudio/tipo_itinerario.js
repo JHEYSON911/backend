@@ -33,10 +33,9 @@ const create = async (typeOfItinerary) => {
 
 const update = async (id, typeOfItinerary) => {
   try {
-    const updateTypeOfItinerary = await TipoItinerario.update(
-      { typeOfItinerary },
-      { where: { id } },
-    );
+    const updateTypeOfItinerary = await TipoItinerario.update(typeOfItinerary, {
+      where: { id },
+    });
     contentValidator(updateTypeOfItinerary);
     return updateTypeOfItinerary;
   } catch (err) {

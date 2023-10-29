@@ -33,7 +33,7 @@ const create = async (worker) => {
 
 const update = async (id, worker) => {
   try {
-    const updateWorker = await Trabajador.update({ worker }, { where: { id } });
+    const updateWorker = await Trabajador.update(worker, { where: { id } });
     contentValidator(updateWorker);
     return updateWorker;
   } catch (err) {

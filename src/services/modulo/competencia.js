@@ -33,10 +33,9 @@ const create = async (competencie) => {
 
 const update = async (id, competencie) => {
   try {
-    const updateCompetencie = await Competencia.update(
-      { competencie },
-      { where: { id } },
-    );
+    const updateCompetencie = await Competencia.update(competencie, {
+      where: { id },
+    });
     contentValidator(updateCompetencie);
     return updateCompetencie;
   } catch (err) {

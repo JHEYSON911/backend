@@ -1,4 +1,4 @@
-const TipoCertificado = require("../../models/certificado/certificado.js");
+const TipoCertificado = require("../../models/certificado/tipo_certificado.js");
 const contentValidator = require("../../utils/contentValidator.js");
 
 const getAll = async () => {
@@ -34,7 +34,7 @@ const create = async (certificateType) => {
 const update = async (id, certificateType) => {
   try {
     const updateCertificateType = await TipoCertificado.update(
-      { certificateType },
+      certificateType,
       { where: { id } },
     );
     contentValidator(updateCertificateType);
