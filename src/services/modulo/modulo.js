@@ -1,6 +1,8 @@
 const Modulo = require("../../models/modulo/modulo.js");
 const Curso = require("../../models/modulo/curso.js");
+const Competencia = require("../../models/modulo/competencia.js");
 const ModuloCurso = require("../../models/intermedio/modulo_curso.js");
+const ModuloCompetencia = require("../../models/intermedio/modulo_competencia.js");
 const contentValidator = require("../../utils/contentValidator.js");
 
 const getAll = async () => {
@@ -70,6 +72,23 @@ const searchCoursesByModulId = async (id) => {
     throw err;
   }
 };
+const searchCompetenciesByModulId = async (id) => {
+  try {
+    const competencies = await Modulo.findOne({
+      where: { id },
+      include: {
+        model: Competencia,
+        through: {
+          model: ModuloCompetencia,
+        },
+      },
+    });
+    contentValidator(competencies);
+    return competencies;
+  } catch (err) {
+    throw err;
+  }
+};
 
 // const  = async (codigo) => {
 //   try {
@@ -86,5 +105,6 @@ const moduleService = {
   update,
   destroy,
   searchCoursesByModulId,
+  searchCompetenciesByModulId,
 };
 module.exports = moduleService;

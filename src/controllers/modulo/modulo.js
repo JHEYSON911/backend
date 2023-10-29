@@ -63,6 +63,15 @@ const getCoursesByModulId = async (req, res) => {
     handleErrorController(err.message, res);
   }
 };
+const getCompetenciesByModulId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const search = await moduloService.searchCompetenciesByModulId(id);
+    return res.status(200).json({ data: search });
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
 
 // const  = async (req, res) => {
 //   try {
@@ -80,6 +89,7 @@ const moduloController = {
   update,
   destroy,
   getCoursesByModulId,
+  getCompetenciesByModulId,
 };
 
 module.exports = moduloController;
