@@ -1,25 +1,27 @@
 const express = require("express");
 
 //  Importando las rutas
-const userRoutes = require("./routes/user.js");
-const estudianteRoutes = require("./routes/estudiante.js");
-const trabajadorRoutes = require("./routes/trabajador.js");
-const certificadoRoutes = require("./routes/certificado/certificado.js");
-const tipoCertificadoRoutes = require("./routes/certificado/tipo_certificado.js");
-const carreraRoutes = require("./routes/institucion/carrera.js");
-const institucionRoutes = require("./routes/institucion/institucion.js");
-const calificacionRoutes = require("./routes/modulo/calificacion.js");
-const competenciaRoutes = require("./routes/modulo/competencia.js");
-const cursoRoutes = require("./routes/modulo/curso.js");
-const indicadorLogroRoutes = require("./routes/modulo/indicador_logro.js");
-const moduloRoutes = require("./routes/modulo/modulo.js");
-const nivelFormacionRoutes = require("./routes/plan_estudio/nivel_formacion.js");
-const planDeEstudiosRoutes = require("./routes/plan_estudio/plan_de_estudios.js");
-const planEstudioRoutes = require("./routes/plan_estudio/plan_estudio.js");
-const programaDeEstudiosRoutes = require("./routes/plan_estudio/programa_de_estudios.js");
-const tipoEnfoqueRoutes = require("./routes/plan_estudio/tipo_enfoque.js");
-const tipoItinerarioRoutes = require("./routes/plan_estudio/tipo_itinerario.js");
-const tipoModalidadRoutes = require("./routes/plan_estudio/tipo_modalidad.js");
+const userRoutes = require("./routes/user");
+const estudianteRoutes = require("./routes/estudiante");
+const trabajadorRoutes = require("./routes/trabajador");
+const certificadoRoutes = require("./routes/certificado/certificado");
+const tipoCertificadoRoutes = require("./routes/certificado/tipo_certificado");
+const carreraRoutes = require("./routes/institucion/carrera");
+const institucionRoutes = require("./routes/institucion/institucion");
+const calificacionRoutes = require("./routes/modulo/calificacion");
+const competenciaRoutes = require("./routes/modulo/competencia");
+const cursoRoutes = require("./routes/modulo/curso");
+const indicadorLogroRoutes = require("./routes/modulo/indicador_logro");
+const moduloRoutes = require("./routes/modulo/modulo");
+const nivelFormacionRoutes = require("./routes/plan_estudio/nivel_formacion");
+const planDeEstudiosRoutes = require("./routes/plan_estudio/plan_de_estudios");
+const planEstudioRoutes = require("./routes/plan_estudio/plan_estudio");
+const programaDeEstudiosRoutes = require("./routes/plan_estudio/programa_de_estudios");
+const tipoEnfoqueRoutes = require("./routes/plan_estudio/tipo_enfoque");
+const tipoItinerarioRoutes = require("./routes/plan_estudio/tipo_itinerario");
+const tipoModalidadRoutes = require("./routes/plan_estudio/tipo_modalidad");
+const solicitudRoutes = require("./routes/solicitud/solicitud");
+const tipoSolicitudRoutes = require("./routes/solicitud/tipo_solicitud");
 
 //  Importando las rutas de la logica del Negocio
 const authRoutes = require("./routes/auth.js");
@@ -51,6 +53,8 @@ app.use("/api/v1/programa-de-estudio", programaDeEstudiosRoutes);
 app.use("/api/v1/tipo-enfoque", tipoEnfoqueRoutes);
 app.use("/api/v1/tipo-itinerario", tipoItinerarioRoutes);
 app.use("/api/v1/tipo-modalidad", tipoModalidadRoutes);
+app.use("/api/v1/solicitud", solicitudRoutes);
+app.use("/api/v1/tipo-solicitud", tipoSolicitudRoutes);
 
 // Rutas del Negocio
 

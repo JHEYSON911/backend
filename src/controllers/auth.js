@@ -62,8 +62,12 @@ const login = async (req, res) => {
   try {
     const { bodyData } = req.body;
     reqValidatorContent(bodyData);
-    const { username, password, rol, nombreCompleto: nombre } = bodyData;
-    const { password: contra } = await userService.validatePassword(username);
+    const { username, password } = bodyData;
+    const {
+      password: contra,
+      rol,
+      nombreCompleto: nombre,
+    } = await userService.validatePassword(username);
     const validate = bcrypt.compareSync(password, contra);
     const token = jwt.sign({ username, rol, nombre }, process.env.JWT_KEY);
     if (validate) {
