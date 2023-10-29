@@ -1,5 +1,7 @@
 const Estudiante = require("../models/estudiante.js");
 const Certificado = require("../models/certificado/certificado.js");
+const Calificacion = require("../models/modulo/calificacion.js");
+const Curso = require("../models/modulo/curso.js");
 const Solicitud = require("../models/solicitud/solicitud.js");
 const contentValidator = require("../utils/contentValidator");
 
@@ -76,7 +78,7 @@ const searchCertificatesByStudentCode = async (codigo) => {
     throw err;
   }
 };
-const searchRequestsByEstudentCode = async (codigo) => {
+const searchRequestsByStudentCode = async (codigo) => {
   try {
     const requests = await Estudiante.findOne({
       where: { codigo },
@@ -89,6 +91,25 @@ const searchRequestsByEstudentCode = async (codigo) => {
   }
 };
 
+const searchCalificationsByEstudentCode = async (codigo) => {
+  try {
+    const califications = await Estudiante.findOne({
+      where: { codigo },
+      include: { model: Calificacion, include: { model: Curso } },
+    });
+    contentValidator(califications);
+    return califications;
+  } catch (err) {
+    throw err;
+  }
+};
+// const  = async (codigo) => {
+//   try {
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+
 const estudianteService = {
   getAll,
   getById,
@@ -97,7 +118,8 @@ const estudianteService = {
   destroy,
   searchStudentByUserId,
   searchCertificatesByStudentCode,
-  searchRequestsByEstudentCode,
+  searchRequestsByStudentCode,
+  searchCalificationsByEstudentCode,
 };
 
 module.exports = estudianteService;

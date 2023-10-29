@@ -68,13 +68,32 @@ const getCertificatesByCode = async (req, res) => {
 const getRequestsByCode = async (req, res) => {
   try {
     const { code } = req.params;
-    const search = await estudianteService.searchRequestsByEstudentCode(code);
+    const search = await estudianteService.searchRequestsByStudentCode(code);
     return res.status(200).json({ data: search });
   } catch (err) {
     handleErrorController(err.message, res);
   }
 };
 
+const getCalificationsByStudentCode = async (req, res) => {
+  try {
+    const { code } = req.params;
+    const search =
+      await estudianteService.searchCalificationsByEstudentCode(code);
+    return res.status(200).json({ data: search });
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
+
+// const  = (req, res) => {
+//   try {
+// return res.status(200).json({data:search})
+
+//   } catch (err) {
+//     handleErrorController(err.message, res);
+//   }
+// };
 const studentController = {
   getAll,
   getById,
@@ -83,6 +102,7 @@ const studentController = {
   destroy,
   getCertificatesByCode,
   getRequestsByCode,
+  getCalificationsByStudentCode,
 };
 
 module.exports = studentController;
