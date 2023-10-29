@@ -54,12 +54,23 @@ const destroy = async (req, res) => {
   }
 };
 
+const getModulsByPlanId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const search = await planEstudioService.searchModulsByPlanId(id);
+    return res.status(200).json({ data: search });
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
+
 const planEstudioController = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  getModulsByPlanId,
 };
 
 module.exports = planEstudioController;

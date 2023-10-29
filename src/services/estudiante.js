@@ -108,7 +108,6 @@ const searchCalificationsByEstudentCode = async (codigo) => {
 
 const searchPlanEstudioByStudentCode = async (codigo) => {
   try {
-    // const { id } = await searchRequestsByStudentCode(codigo);
     const plan = await Estudiante.findOne({
       where: { codigo },
       include: {

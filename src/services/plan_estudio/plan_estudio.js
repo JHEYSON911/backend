@@ -1,4 +1,6 @@
 const PlanEstudio = require("../../models/plan_estudio/plan_estudio.js");
+const Modulo = require("../../models/modulo/modulo.js");
+const PlanModulo = require("../../models/intermedio/plan_estudio_modulo.js");
 const contentValidator = require("../../utils/contentValidator.js");
 
 const getAll = async () => {
@@ -55,12 +57,41 @@ const destroy = async (id) => {
   }
 };
 
+//  Logica del negocio
+
+const searchModulsByPlanId = async (id) => {
+  try {
+    const moduls = await PlanEstudio.findOne({
+      where: { id },
+      include: {
+        model: Modulo,
+        through: {
+          model: PlanModulo,
+        },
+      },
+    });
+    contentValidator(moduls);
+    return moduls;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// const  = async (codigo) => {
+//   try {
+// contentValidator(califications);
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+
 const studyPlanService = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  searchModulsByPlanId,
 };
 
 module.exports = studyPlanService;
