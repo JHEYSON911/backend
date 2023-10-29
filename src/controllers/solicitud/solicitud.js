@@ -1,3 +1,4 @@
+const estudianteService = require("../../services/estudiante");
 const solicitudService = require("../../services/solicitud/solicitud");
 const handleErrorController = require("../../utils/handleErrorController.js");
 const reqValidatorContent = require("../../utils/reqValidatorContent.js");
@@ -25,9 +26,10 @@ const create = async (req, res) => {
   try {
     const { bodyData } = req.body;
     reqValidatorContent(bodyData);
-    console.log(bodyData);
-    // const response = await solicitudService.create(bodyData);
-    // return res.status(200).json({ data: response });
+    const { id } = await estudianteService.searchStudentByUserId(req.id);
+    const data = { ...bodyData, estudianteId: id };
+    const response = await solicitudService.create(data);
+    return res.status(200).json({ data: response });
   } catch (err) {
     handleErrorController(err.message, res);
   }

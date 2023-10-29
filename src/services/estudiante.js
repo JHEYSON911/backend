@@ -62,9 +62,9 @@ const searchCertificatesByCode = async (code) => {
   }
 };
 
-const searchStudentByUsername = async (username) => {
+const searchStudentByUserId = async (userId) => {
   try {
-    const search = await Estudiante.findOne({ where: { username } });
+    const search = await Estudiante.findOne({ where: { userId } });
     contentValidator(search);
     return search;
   } catch (err) {
@@ -79,7 +79,7 @@ const estudianteService = {
   update,
   destroy,
   searchCertificatesByCode,
-  searchStudentByUsername,
+  searchStudentByUserId,
 };
 
 module.exports = estudianteService;

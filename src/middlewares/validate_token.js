@@ -6,9 +6,11 @@ const validateToken = async (req, res, next) => {
     const token = req.header("Authorization").split(" ")[1];
     jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
       if (err) throw new Error(err);
-      const { username, rol, nombre } = jwt.decode(token);
+      const { id, username, rol, nombre, email } = jwt.decode(token);
+      req.id = id;
       req.username = username;
       req.rol = rol;
+      req.email = email;
       req.nombre = nombre;
       next();
     });
