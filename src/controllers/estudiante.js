@@ -63,6 +63,17 @@ const getCertificatesByCode = async (req, res) => {
     handleErrorController(err.message, res);
   }
 };
+
+const getRequestsByCode = async (req, res) => {
+  try {
+    const { code } = req.params;
+    const search = await estudianteService.searchRequestsByEstudentCode(code);
+    return res.status(200).json({ data: search });
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
+
 const studentController = {
   getAll,
   getById,
@@ -70,6 +81,7 @@ const studentController = {
   update,
   destroy,
   getCertificatesByCode,
+  getRequestsByCode,
 };
 
 module.exports = studentController;
