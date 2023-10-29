@@ -54,12 +54,35 @@ const destroy = async (req, res) => {
   }
 };
 
+//  Logica del negocio
+
+const getIndicatorsByCompetencieId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const search =
+      await competenciaService.searchIndicadorLogroByCompetencieId(id);
+    return res.status(200).json({ data: search });
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
+
+// const  = async (req, res) => {
+//   try {
+// return res.status(200).json({data:search})
+
+//   } catch (err) {
+//     handleErrorController(err.message, res);
+//   }
+// };
+
 const competenciaController = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  getIndicatorsByCompetencieId,
 };
 
 module.exports = competenciaController;

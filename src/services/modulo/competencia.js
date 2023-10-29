@@ -1,4 +1,6 @@
 const Competencia = require("../../models/modulo/competencia.js");
+const IndicadorLogro = require("../../models/modulo/indicador_logro.js");
+const CompetenciaIndicadorLogro = require("../../models/intermedio/competencia_indicador_logro");
 const contentValidator = require("../../utils/contentValidator.js");
 
 const getAll = async () => {
@@ -53,12 +55,39 @@ const destroy = async (id) => {
   }
 };
 
+//  Logica del negocio
+const searchIndicadorLogroByCompetencieId = async (id) => {
+  try {
+    const indicadorLogros = await Competencia.findOne({
+      where: { id },
+      include: {
+        model: IndicadorLogro,
+        through: {
+          model: CompetenciaIndicadorLogro,
+        },
+      },
+    });
+    contentValidator(indicadorLogros);
+    return indicadorLogros;
+  } catch (err) {
+    throw err;
+  }
+};
+// const  = async (codigo) => {
+//   try {
+// contentValidator(califications);
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+
 const competencieService = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  searchIndicadorLogroByCompetencieId,
 };
 
 module.exports = competencieService;
