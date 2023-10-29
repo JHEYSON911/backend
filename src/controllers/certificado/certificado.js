@@ -54,12 +54,20 @@ const destroy = async (req, res) => {
   }
 };
 
+const pushDocument = async (req, res) => {
+  try {
+    console.log(req);
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
 const certificadoController = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  pushDocument,
 };
 
 module.exports = certificadoController;

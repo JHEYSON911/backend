@@ -53,15 +53,15 @@ const destroy = async (id) => {
   }
 };
 
-// const pushDocument = async (id, urlDoc) => {
-//   try {
-//     const pushDoc = await Certificado.update({ urlDoc }, { where: { id } });
-//     contentValidator(pushDoc);
-//     return pushDoc;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+const pushDocument = async (id, urlDoc) => {
+  try {
+    const pushDoc = await Certificado.update(urlDoc, { where: { id } });
+    contentValidator(pushDoc);
+    return pushDoc;
+  } catch (err) {
+    throw err;
+  }
+};
 
 const certificateService = {
   getAll,
@@ -69,7 +69,7 @@ const certificateService = {
   create,
   update,
   destroy,
-  // pushDocument,
+  pushDocument,
 };
 
 module.exports = certificateService;
