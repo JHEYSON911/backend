@@ -54,12 +54,32 @@ const destroy = async (req, res) => {
   }
 };
 
+const getCoursesByModulId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const search = await moduloService.searchCoursesByModulId(id);
+    return res.status(200).json({ data: search });
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
+
+// const  = async (req, res) => {
+//   try {
+// return res.status(200).json({data:search})
+
+//   } catch (err) {
+//     handleErrorController(err.message, res);
+//   }
+// };
+
 const moduloController = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  getCoursesByModulId,
 };
 
 module.exports = moduloController;

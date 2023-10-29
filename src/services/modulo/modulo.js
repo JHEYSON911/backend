@@ -1,4 +1,6 @@
 const Modulo = require("../../models/modulo/modulo.js");
+const Curso = require("../../models/modulo/curso.js");
+const ModuloCurso = require("../../models/intermedio/modulo_curso.js");
 const contentValidator = require("../../utils/contentValidator.js");
 
 const getAll = async () => {
@@ -51,12 +53,38 @@ const destroy = async (id) => {
   }
 };
 
+const searchCoursesByModulId = async (id) => {
+  try {
+    const courses = await Modulo.findOne({
+      where: { id },
+      include: {
+        model: Curso,
+        through: {
+          model: ModuloCurso,
+        },
+      },
+    });
+    contentValidator(courses);
+    return courses;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// const  = async (codigo) => {
+//   try {
+// contentValidator(califications);
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+
 const moduleService = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  searchCoursesByModulId,
 };
-
 module.exports = moduleService;
