@@ -54,12 +54,34 @@ const destroy = async (req, res) => {
   }
 };
 
+//  logica del negocio
+
+const getPlansByCarreraId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const search = await carreraService.searchPlanByCarreraId(id);
+    return res.status(200).json({ data: search });
+  } catch (err) {
+    handleErrorController(err.message, res);
+  }
+};
+
+// const  = async (req, res) => {
+//   try {
+// return res.status(200).json({data:search})
+
+//   } catch (err) {
+//     handleErrorController(err.message, res);
+//   }
+// };
+
 const carreraController = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  getPlansByCarreraId,
 };
 
 module.exports = carreraController;

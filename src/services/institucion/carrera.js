@@ -1,4 +1,6 @@
 const Carrera = require("../../models/institucion/carrera.js");
+const PlanEstudio = require("../../models/plan_estudio/plan_estudio.js");
+const CarreraPlanEstudio = require("../../models/intermedio/carrera_planestudio.js");
 const contentValidator = require("../../utils/contentValidator.js");
 
 const getAll = async () => {
@@ -51,12 +53,41 @@ const destroy = async (id) => {
   }
 };
 
+//  Logica del Negocio
+
+const searchPlanByCarreraId = async (id) => {
+  try {
+    const competencies = await Carrera.findOne({
+      where: { id },
+      include: {
+        model: PlanEstudio,
+        through: {
+          model: CarreraPlanEstudio,
+        },
+      },
+    });
+    contentValidator(competencies);
+    return competencies;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// const  = async (codigo) => {
+//   try {
+// contentValidator(califications);
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+
 const majorService = {
   getAll,
   getById,
   create,
   update,
   destroy,
+  searchPlanByCarreraId,
 };
 
 module.exports = majorService;
