@@ -57,7 +57,8 @@ const destroy = async (req, res) => {
 const getCertificatesByCode = async (req, res) => {
   try {
     const { code } = req.params;
-    const search = await estudianteService.searchCertificatesByCode(code);
+    const search =
+      await estudianteService.searchCertificatesByStudentCode(code);
     return res.status(200).json({ data: search });
   } catch (err) {
     handleErrorController(err.message, res);

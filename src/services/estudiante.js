@@ -66,7 +66,7 @@ const searchStudentByUserId = async (userId) => {
 
 const searchCertificatesByStudentCode = async (codigo) => {
   try {
-    const search = await Estudiante.findAll({
+    const search = await Estudiante.findOne({
       where: { codigo },
       include: { model: Certificado },
     });
