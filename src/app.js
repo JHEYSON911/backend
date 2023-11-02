@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 //  Importando las rutas
 const userRoutes = require("./routes/user");
@@ -29,6 +30,7 @@ const authRoutes = require("./routes/auth.js");
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
